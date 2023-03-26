@@ -48,22 +48,55 @@ public class CustomerServiceImpl implements CustomerService {
 		//If no driver is available, throw "No cab available!" exception
 		//Avoid using SQL query
 
+//		Driver driver = null;
+//		List<Driver> driverList = new ArrayList<>();
+//
+//		// 1st check driver avilable or not
+//		for(Driver driver1 : driverList) {
+//			if(driver1.getCab().getAvailable() == true) {
+//				if(driver1 == null || driver.getDriverId() > driver1.getDriverId()) {
+//
+//					driver = driver1;
+//				}
+//			}
+//		}
+//		if(driver == null) {
+//			throw new Exception("No cab available!");
+//		}
+//
+//		Customer customer = customerRepository2.findById(customerId).get();
+//
+//		TripBooking tripBooking = new TripBooking();
+//		tripBooking.setDistanceInKm(distanceInKm);
+//		tripBooking.setFromLocation(fromLocation);
+//		tripBooking.setToLocation(toLocation);
+//		tripBooking.setCustomer(customer);
+//		tripBooking.setDriver(driver);
+//		driver.getCab().setAvailable(Boolean.FALSE);
+//
+//		tripBooking.setStatus(TripStatus.CONFIRMED);
+//
+//		customer.getTripBookingList().add(tripBooking);
+//		driver.getTripBookingList().add(tripBooking);
+//
+//		driverRepository2.save(driver);
+//		customerRepository2.save(customer);
+//
+//		//this is child will be automatically saved.
+//		return tripBooking;
+
 		Driver driver = null;
-		List<Driver> driverList = new ArrayList<>();
-
-		// 1st check driver avilable or not
-		for(Driver driver1 : driverList) {
-			if(driver1.getCab().getAvailable() == true) {
-				if(driver1 == null || driver.getDriverId() > driver1.getDriverId()) {
-
+		List<Driver> driverList = driverRepository2.findAll();
+		for(Driver driver1 : driverList){
+			if(driver1.getCab().getAvailable() == true){
+				if(driver == null || driver.getDriverId() > driver1.getDriverId()){
 					driver = driver1;
 				}
 			}
 		}
-		if(driver == null) {
+		if(driver == null){
 			throw new Exception("No cab available!");
 		}
-
 		Customer customer = customerRepository2.findById(customerId).get();
 
 		TripBooking tripBooking = new TripBooking();
@@ -72,8 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setToLocation(toLocation);
 		tripBooking.setCustomer(customer);
 		tripBooking.setDriver(driver);
-		driver.getCab().setAvailable(Boolean.FALSE);
-
+		driver.getCab().setAvailable(false);
 		tripBooking.setStatus(TripStatus.CONFIRMED);
 
 		customer.getTripBookingList().add(tripBooking);
