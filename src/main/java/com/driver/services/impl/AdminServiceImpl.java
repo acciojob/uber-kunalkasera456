@@ -48,8 +48,6 @@ public class AdminServiceImpl implements AdminService {
 
 		Admin admin = adminRepository1.findById(adminId).get();
 		adminRepository1.delete(admin);
-
-
 	}
 
 	@Override
